@@ -1,5 +1,7 @@
 # osu!lazer Fix - true exclusive fullscreen (removes input lag)
 
+The patch against Veldrid 2026.322.0 is available as a readable diff [here](https://github.com/iwili-dev/veldrid/tree/exclusive-fullscreen).
+
 Unofficial fix for **osu!lazer 2026.1005.0** on Windows. It adds real exclusive fullscreen
 (Direct3D 11 renderer), which removes input lag. Made by **iwili**.
 
