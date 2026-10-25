@@ -5,6 +5,8 @@ Unofficial fix for **osu!lazer 2026.1005.0** on Windows. It adds real exclusive 
 
 [Русская версия](README.ru.md)
 
+[![Support me on Ko-fi](https://shields.io)](https://ko-fi.com/iwili)
+
 > **Read this first.** This is NOT an official version of the game. The fix was originally made for
 > personal use. If something goes wrong, the author is not responsible. I do not know whether an
 > account can be banned for using modified game files: it may happen or it may not.
