@@ -1,5 +1,7 @@
 # Building the fix
 
+The patch against Veldrid 2026.322.0 is available as a readable diff [here](https://github.com/iwili-dev/veldrid/tree/exclusive-fullscreen).
+
 Requirements: Windows, [.NET SDK 10](https://dotnet.microsoft.com/download), PowerShell.
 
 1. Get the sources from GitHub and put them into these folders (the paths are set at the top of
