@@ -1,5 +1,7 @@
 # osu!lazer Fix - настоящий эксклюзивный полный экран (убирает инпут-лаг)
 
+The patch against Veldrid 2026.322.0 is available as a readable diff [here](https://github.com/iwili-dev/veldrid/tree/exclusive-fullscreen).
+
 Неофициальный фикс для **osu!lazer 2026.1005.0** на Windows. Добавляет настоящий эксклюзивный
 полный экран (рендерер Direct3D 11), который убирает инпут-лаг. Автор: **iwili**.
 
