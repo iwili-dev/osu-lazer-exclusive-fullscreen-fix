@@ -52,9 +52,8 @@ if errorlevel 2 goto :cancel
 tasklist /FI "IMAGENAME eq osu!.exe" 2>nul | find /I "osu!.exe" >nul
 if not errorlevel 1 goto :running
 
-set "OSU_FIX_EXPECT="
-if exist "%BACKUP%\version.txt" set /p OSU_FIX_EXPECT=<"%BACKUP%\version.txt"
-powershell -NoProfile -Command "if((Get-Item -LiteralPath (Join-Path $env:OSU_FIX_GAME 'osu!.exe')).VersionInfo.ProductVersion.StartsWith($env:OSU_FIX_EXPECT)){exit 0}else{exit 1}"
+set "OSU_FIX_BACKUP=%BACKUP%"
+powershell -NoProfile -Command "try{$e=(Get-Content -LiteralPath (Join-Path $env:OSU_FIX_BACKUP 'version.txt') -Raw).Trim(); if($e -and (Get-Item -LiteralPath (Join-Path $env:OSU_FIX_GAME 'osu!.exe')).VersionInfo.ProductVersion.StartsWith($e)){exit 0}else{exit 1}}catch{exit 1}"
 if errorlevel 1 goto :updated
 
 copy /y "%BACKUP%\ppy.Veldrid.dll" "%GAME%\" >nul

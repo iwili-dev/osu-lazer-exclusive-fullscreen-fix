@@ -35,6 +35,14 @@ To remove the fix, run `revert.bat`. Full instructions (English and Russian) are
 
 If osu!lazer updates itself, the fix disappears and a new version of the fix is needed.
 
+### Graphics tablet
+
+If the cursor lags when you play with a graphics tablet, it is most likely caused by OpenTabletDriver running outside the game. Use the built-in tablet driver of osu!lazer instead (Settings - Input - Tablet).
+
+### Multiple monitors
+
+If you use 2 or more monitors, it is better not to use Alt+Tab while the game is in exclusive fullscreen.
+
 ## Build it yourself
 
 See [BUILDING.md](BUILDING.md).

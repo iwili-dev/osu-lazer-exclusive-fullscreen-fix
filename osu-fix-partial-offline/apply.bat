@@ -77,6 +77,26 @@ if not errorlevel 1 goto :running
 powershell -NoProfile -Command "if((Get-Item -LiteralPath (Join-Path $env:OSU_FIX_GAME 'osu!.exe')).VersionInfo.ProductVersion.StartsWith($env:OSU_FIX_EXPECT)){exit 0}else{exit 1}"
 if errorlevel 1 goto :badversion
 
+rem ---------- backup left over from a previous version of the fix ----------
+set "KEEPFLAG="
+if not exist "%BACKUP%\ppy.Veldrid.dll" goto :bkdone
+set "OSU_FIX_BACKUP=%BACKUP%"
+powershell -NoProfile -Command "try{if((Get-Content -LiteralPath (Join-Path $env:OSU_FIX_BACKUP 'version.txt') -Raw).Trim() -eq $env:OSU_FIX_EXPECT){exit 0}else{exit 1}}catch{exit 1}"
+if not errorlevel 1 goto :bkdone
+echo.
+echo A backup made by a previous version of the fix was found. It is out of date.
+echo Checking that the current game files are the original ones...
+set "OSU_FIX_PREFIX=4.9.69+"
+powershell -NoProfile -Command "if((Get-Item -LiteralPath (Join-Path $env:OSU_FIX_GAME 'ppy.Veldrid.dll')).VersionInfo.ProductVersion.StartsWith($env:OSU_FIX_PREFIX)){exit 0}else{exit 1}"
+if errorlevel 1 goto :dirty
+set "OSU_FIX_PREFIX=2026.921.1+"
+powershell -NoProfile -Command "if((Get-Item -LiteralPath (Join-Path $env:OSU_FIX_GAME 'osu.Framework.dll')).VersionInfo.ProductVersion.StartsWith($env:OSU_FIX_PREFIX)){exit 0}else{exit 1}"
+if errorlevel 1 goto :dirty
+if exist "%BACKUP%\layer-added.flag" set "KEEPFLAG=1"
+rd /s /q "%BACKUP%"
+echo The out-of-date backup was removed. A new one will be made.
+:bkdone
+
 if exist "%BACKUP%\ppy.Veldrid.dll" goto :backed1
 rem No backup of this file yet: it can only be saved if the game currently has the OFFICIAL file.
 set "OSU_FIX_PREFIX=4.9.69+"
@@ -96,6 +116,7 @@ copy /y "%GAME%\osu.Framework.dll" "%BACKUP%\" >nul
 if errorlevel 1 goto :copyfail
 :backed2
 > "%BACKUP%\version.txt" echo %FIXVER%
+if defined KEEPFLAG > "%BACKUP%\layer-added.flag" echo 1
 
 reg query "%LAYERS%" /v "%GAME%\osu!.exe" >nul 2>&1
 if not errorlevel 1 goto :layerdone
@@ -174,7 +195,10 @@ exit /b 1
 
 :copyfail
 echo.
-echo Could not copy the file. If the game is in a protected folder ^(for example Program Files^),
-echo right-click apply.bat and choose "Run as administrator". Nothing else was changed.
+echo Could not copy a file. Putting the original files back ^(if they were saved^)...
+if exist "%BACKUP%\ppy.Veldrid.dll" copy /y "%BACKUP%\ppy.Veldrid.dll" "%GAME%\" >nul 2>&1
+if exist "%BACKUP%\osu.Framework.dll" copy /y "%BACKUP%\osu.Framework.dll" "%GAME%\" >nul 2>&1
+echo If the game is in a protected folder ^(for example Program Files^), right-click apply.bat
+echo and choose "Run as administrator".
 pause
 exit /b 1

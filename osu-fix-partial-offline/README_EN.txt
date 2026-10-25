@@ -73,6 +73,11 @@ and the backup is removed.
 If osu!lazer updates itself, the fix disappears (the game replaces its files).
 The installer works only with version 2026.1005.0, so a new version of the fix
 is needed for newer game versions.
+When a new version of the fix is released, just run its apply.bat. It removes
+the out-of-date backup of the previous version automatically and makes a new one.
+(You can also run the old revert.bat first: it does not touch the files of the
+updated game.) Until a new version of the fix is released, the game simply
+works as the official one.
 
 9. TROUBLESHOOTING
 ------------------
@@ -86,6 +91,11 @@ is needed for newer game versions.
   Fullscreen.
 - To turn exclusive mode off without uninstalling, set the environment
   variable OSU_D3D11_EXCLUSIVE=0.
+- Cursor lags when playing with a graphics tablet: most likely it is caused by
+  OpenTabletDriver running outside the game. Use the built-in tablet driver of
+  osu!lazer instead (Settings - Input - Tablet).
+- If you use 2 or more monitors, it is better not to use Alt+Tab while the game
+  is in exclusive fullscreen.
 - Switching between the ONLINE and PARTIAL OFFLINE editions: run apply.bat of
   the other edition. revert.bat of either edition removes the fix completely.
 
