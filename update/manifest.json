@@ -1,45 +1,51 @@
 {
   "format": 1,
-  "updated": "2026-11-02 14:11 UTC",
+  "updated": "2026-11-03 13:09 UTC",
   "app": {
-    "version": "1.0.0",
-    "url": "https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/download/app-1.0.0/osu-lazer-fix.exe",
-    "sha256": "3D4E0A5B230D7B8D8251D7CA0D4D860D4B566FF61E449AC61A34BB09281C27B8",
-    "size": 132608
+    "version": "1.1.0",
+    "url": "https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/download/app-1.1.0/osu-lazer-fix.exe",
+    "sha256": "5002DE151FBD10CD5EEBD80B2486F640B07D2F93BF6B281188E647279D340822",
+    "size": 138752
   },
   "patches": [
     {
       "game": "2026.1005.0",
-      "release": "2026.1005.0-1",
+      "release": "2026.1005.0-2",
       "veldridPrefix": "4.9.69+",
       "frameworkPrefix": "2026.921.1+",
       "editions": {
         "online": [
           {
             "name": "ppy.Veldrid.dll",
-            "url": "https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/download/2026.1005.0-1/osu-lazer-fix-2026.1005.0-online.zip",
-            "entry": "osu-fix-online/osu-fix-online/files/ppy.Veldrid.dll",
-            "sha256": "14FD07975512276C999952B66B1FAD008C0F885876F67C7B8A897AF570B16B70",
-            "size": 457216
+            "url": "https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/download/2026.1005.0-2/osu-lazer-fix-2026.1005.0-online.zip",
+            "entry": "osu-fix-online/files/ppy.Veldrid.dll",
+            "sha256": "341F9AAEBEE399139439BBF347FE11830CD87698064B374E7152D1F9EA57E1FF",
+            "size": 459264
           }
         ],
         "partial-offline": [
           {
             "name": "ppy.Veldrid.dll",
-            "url": "https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/download/2026.1005.0-1/osu-lazer-fix-2026.1005.0-partial-offline.zip",
+            "url": "https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/download/2026.1005.0-2/osu-lazer-fix-2026.1005.0-partial-offline.zip",
             "entry": "osu-fix-partial-offline/files/ppy.Veldrid.dll",
-            "sha256": "14FD07975512276C999952B66B1FAD008C0F885876F67C7B8A897AF570B16B70",
-            "size": 457216
+            "sha256": "341F9AAEBEE399139439BBF347FE11830CD87698064B374E7152D1F9EA57E1FF",
+            "size": 459264
           },
           {
             "name": "osu.Framework.dll",
-            "url": "https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/download/2026.1005.0-1/osu-lazer-fix-2026.1005.0-partial-offline.zip",
+            "url": "https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/download/2026.1005.0-2/osu-lazer-fix-2026.1005.0-partial-offline.zip",
             "entry": "osu-fix-partial-offline/files/osu.Framework.dll",
             "sha256": "2F2C5931B54C44330232B38907728AE9C21A8CE80F18AA3096257CE6F5435F36",
             "size": 3947008
           }
         ]
-      }
+      },
+      "knownHashes": [
+        {
+          "name": "ppy.Veldrid.dll",
+          "sha256": "14FD07975512276C999952B66B1FAD008C0F885876F67C7B8A897AF570B16B70"
+        }
+      ]
     }
   ]
 }
