@@ -84,8 +84,13 @@ works as the official one.
 - Cursor lags when playing with a graphics tablet: most likely it is caused by
   OpenTabletDriver running outside the game. Use the built-in tablet driver of
   osu!lazer instead (Settings - Input - Tablet).
-- If you use 2 or more monitors, it is better not to use Alt+Tab while the game
-  is in exclusive fullscreen.
+- Alt+Tab: the game leaves exclusive fullscreen when it loses focus and goes
+  back into it when you return (the screen blinks once each time).
+- Two monitors (experimental): to keep the game in fullscreen while you click
+  OBS or chat on ANOTHER monitor, turn on "Two-monitor mode" in the settings of
+  osu-lazer-fix.exe. Without the program: run  setx OSU_D3D11_KEEP_ON_OTHER_MONITOR 1
+  in cmd, turn off "Minimise osu! when switching to another app" in the game
+  (Settings - Graphics - Layout) and start the game again.
 - Switching between the ONLINE and PARTIAL OFFLINE editions: run apply.bat of
   the other edition. revert.bat of either edition removes the fix completely.
 

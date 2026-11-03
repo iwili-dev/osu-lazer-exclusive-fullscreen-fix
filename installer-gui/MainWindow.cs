@@ -76,10 +76,10 @@ namespace OsuLazerFix
         // ---- controls that change at run time ----
         private Grid mainPage, settingsPage, aboutPage, overlay;
         private Border frame;
-        private TextBlock txtTitle, lblGame, txtGameVersion, lblStatus, txtStatus, txtPlaceholder, txtBanner, txtBannerBtn;
+        private TextBlock txtTitle, txtTitleSub, lblGame, txtGameVersion, lblStatus, txtStatus, txtPlaceholder, txtBanner, txtBannerBtn;
         private TextBlock txtSettingsTitle, txtAboutTitle, lblLang, lblAuto, lblFolder, txtLangValue, txtPath, txtCheck;
-        private TextBlock txtAboutNote, dlgTitle, dlgText, autoGlyph;
-        private Border dotStatus, bannerBorder, autoBox, scrollTrack, scrollThumb;
+        private TextBlock txtAboutNote, dlgTitle, dlgText, autoGlyph, lblDual, lblDualSub, dualGlyph;
+        private Border dotStatus, bannerBorder, autoBox, dualBox, scrollTrack, scrollThumb;
         private Border btnInstall, btnRemove, btnDlgOk, btnDlgCancel;
         private TextBox txtSearch;
         private StackPanel listPanel;
@@ -94,7 +94,6 @@ namespace OsuLazerFix
         private PatchSet patch;
         private InstallState state = InstallState.NoGame;
         private string selectedKey = "";
-        private bool groupsInitialised;
         private bool installedCurrent = true;   // the installed fix is the newest build of its edition
         private bool checking;                  // the online list is being downloaded
         private bool updating;                  // a new version of the program is being downloaded
@@ -121,6 +120,7 @@ namespace OsuLazerFix
 
             ApplyLanguage();
             UpdateAutoBox();
+            UpdateDualBox();
             UpdateStatus();
 
             // always refresh the list of patches; the program itself updates on its own only if Auto-update is on
@@ -151,6 +151,11 @@ namespace OsuLazerFix
                 FontFamily = Icons,
                 FontSize = size,
                 Foreground = fg,
+                Width = size,
+                Height = size,
+                TextAlignment = TextAlignment.Center,
+                LineStackingStrategy = LineStackingStrategy.BlockLineHeight,
+                LineHeight = size,
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Center
             };
@@ -204,14 +209,26 @@ namespace OsuLazerFix
         {
             var b = new Border
             {
-                Width = 40,
-                Height = 40,
-                CornerRadius = new CornerRadius(12),
+                Width = 36,
+                Height = 36,
+                CornerRadius = new CornerRadius(11),
                 Background = Card2,
-                Child = Glyph(glyph, 15, Txt)
+                VerticalAlignment = VerticalAlignment.Center,
+                Child = Glyph(glyph, 14, Txt)
             };
             Wire(b, onClick);
             return b;
+        }
+
+        /// <summary>Minimise and close. Shown at the top right of every screen.</summary>
+        private StackPanel WindowButtons()
+        {
+            var panel = new StackPanel { Orientation = Orientation.Horizontal, VerticalAlignment = VerticalAlignment.Center };
+            var minimize = IconButton("\uE921", delegate { WindowState = WindowState.Minimized; });
+            minimize.Margin = new Thickness(0, 0, 6, 0);
+            panel.Children.Add(minimize);
+            panel.Children.Add(IconButton("\uE711", delegate { Close(); }));
+            return panel;
         }
 
         private static Border TextButton(double height, double radius, double fontSize, bool bold, Action onClick)
@@ -295,7 +312,7 @@ namespace OsuLazerFix
                 Background = WinBg,
                 BorderBrush = Line,
                 BorderThickness = new Thickness(1),
-                CornerRadius = new CornerRadius(22),
+                CornerRadius = new CornerRadius(0),
                 Effect = new DropShadowEffect { BlurRadius = 30, ShadowDepth = 8, Direction = 270, Opacity = 0.65, Color = Colors.Black }
             };
 
@@ -346,17 +363,21 @@ namespace OsuLazerFix
             aboutPage.Visibility = p == Screen.About ? Visibility.Visible : Visibility.Collapsed;
         }
 
-        private static Grid PageHeader(Border backButton, out TextBlock title)
+        private Grid PageHeader(Border backButton, out TextBlock title)
         {
             var h = new Grid { Margin = new Thickness(24, 20, 24, 0), Height = 40, VerticalAlignment = VerticalAlignment.Top };
             h.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
             h.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+            h.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
             Grid.SetColumn(backButton, 0);
             h.Children.Add(backButton);
             title = Tb("", 17, Txt, true, null);
-            title.Margin = new Thickness(14, 0, 0, 0);
+            title.Margin = new Thickness(14, 0, 12, 0);
             Grid.SetColumn(title, 1);
             h.Children.Add(title);
+            var buttons = WindowButtons();
+            Grid.SetColumn(buttons, 2);
+            h.Children.Add(buttons);
             return h;
         }
 
@@ -368,39 +389,38 @@ namespace OsuLazerFix
             for (int i = 0; i < 6; i++)
                 g.RowDefinitions.Add(new RowDefinition { Height = i == 4 ? new GridLength(1, GridUnitType.Star) : GridLength.Auto });
 
-            // row 0: header
+            // row 0: header. Logo, title on two lines (so it never runs into the buttons), then the buttons in one evenly spaced row.
             var header = new Grid { Margin = new Thickness(24, 20, 24, 0), Height = 40 };
             header.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
             header.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-            for (int i = 0; i < 4; i++) header.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+            header.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
 
-            var logo = Logo(30, 8, 15, 1.7);
+            var logo = Logo(32, 9, 16, 1.7);
+            logo.VerticalAlignment = VerticalAlignment.Center;
             Grid.SetColumn(logo, 0);
             header.Children.Add(logo);
 
-            txtTitle = Tb("", 17, Txt, true, null);
-            txtTitle.Margin = new Thickness(12, 0, 0, 0);
-            Grid.SetColumn(txtTitle, 1);
-            header.Children.Add(txtTitle);
+            var titleStack = new StackPanel { Margin = new Thickness(12, 0, 12, 0), VerticalAlignment = VerticalAlignment.Center };
+            txtTitle = Tb("", 16, Txt, true, null);
+            txtTitleSub = Tb("by iwili", 11.5, Sub, false, null);
+            txtTitleSub.Margin = new Thickness(0, 1, 0, 0);
+            titleStack.Children.Add(txtTitle);
+            titleStack.Children.Add(txtTitleSub);
+            Grid.SetColumn(titleStack, 1);
+            header.Children.Add(titleStack);
 
+            var buttons = new StackPanel { Orientation = Orientation.Horizontal, VerticalAlignment = VerticalAlignment.Center };
             var gear = IconButton("\uE713", delegate { ShowPage(Screen.Settings); });
-            gear.Margin = new Thickness(0, 0, 8, 0);
-            Grid.SetColumn(gear, 2);
-            header.Children.Add(gear);
-
+            gear.Margin = new Thickness(0, 0, 6, 0);
+            buttons.Children.Add(gear);
             var about = IconButton("\uE930", delegate { ShowPage(Screen.About); });
-            about.Margin = new Thickness(0, 0, 16, 0);
-            Grid.SetColumn(about, 3);
-            header.Children.Add(about);
-
-            var minimize = IconButton("\uE921", delegate { WindowState = WindowState.Minimized; });
-            minimize.Margin = new Thickness(0, 0, 8, 0);
-            Grid.SetColumn(minimize, 4);
-            header.Children.Add(minimize);
-
-            var close = IconButton("\uE711", delegate { Close(); });
-            Grid.SetColumn(close, 5);
-            header.Children.Add(close);
+            about.Margin = new Thickness(0, 0, 6, 0);
+            buttons.Children.Add(about);
+            // a thin divider between the page buttons and the window buttons
+            buttons.Children.Add(new Border { Width = 1, Height = 20, Background = Line, Margin = new Thickness(2, 0, 8, 0), VerticalAlignment = VerticalAlignment.Center });
+            buttons.Children.Add(WindowButtons());
+            Grid.SetColumn(buttons, 2);
+            header.Children.Add(buttons);
 
             Grid.SetRow(header, 0);
             g.Children.Add(header);
@@ -420,14 +440,18 @@ namespace OsuLazerFix
             Grid.SetColumn(left, 0);
             sg.Children.Add(left);
 
-            var right = new StackPanel { Margin = new Thickness(28, 0, 0, 0) };
+            var right = new StackPanel { Margin = new Thickness(24, 0, 0, 0) };
             lblStatus = Tb("", 11.5, Sub, false, null);
-            var statusRow = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(0, 12, 0, 0) };
+            var statusRow = new Grid { Margin = new Thickness(0, 10, 0, 0) };
+            statusRow.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+            statusRow.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
             dotStatus = new Border { Width = 10, Height = 10, CornerRadius = new CornerRadius(5), Background = Dim, VerticalAlignment = VerticalAlignment.Center };
-            txtStatus = Tb("", 14, Txt, false, Mono);
+            txtStatus = Tb("", 13.5, Txt, false, Mono);
             txtStatus.Margin = new Thickness(10, 0, 0, 0);
             txtStatus.TextWrapping = TextWrapping.Wrap;
             txtStatus.TextTrimming = TextTrimming.None;
+            Grid.SetColumn(dotStatus, 0);
+            Grid.SetColumn(txtStatus, 1);
             statusRow.Children.Add(dotStatus);
             statusRow.Children.Add(txtStatus);
             right.Children.Add(lblStatus);
@@ -615,6 +639,12 @@ namespace OsuLazerFix
 
         private Border SettingsRow(string glyph, out TextBlock label, UIElement control)
         {
+            TextBlock unused;
+            return SettingsRow(glyph, out label, out unused, control, false);
+        }
+
+        private Border SettingsRow(string glyph, out TextBlock label, out TextBlock sub, UIElement control, bool withSub)
+        {
             var row = new Border { Background = Card, CornerRadius = new CornerRadius(18), Height = 76, Margin = new Thickness(0, 0, 0, 12), Padding = new Thickness(16, 0, 16, 0) };
             var g = new Grid();
             g.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
@@ -624,9 +654,25 @@ namespace OsuLazerFix
             Grid.SetColumn(tile, 0);
             g.Children.Add(tile);
             label = Tb("", 15, Txt, true, null);
-            label.Margin = new Thickness(14, 0, 0, 0);
-            Grid.SetColumn(label, 1);
-            g.Children.Add(label);
+            sub = null;
+            if (withSub)
+            {
+                var texts = new StackPanel { Margin = new Thickness(14, 0, 12, 0), VerticalAlignment = VerticalAlignment.Center };
+                texts.Children.Add(label);
+                sub = Tb("", 11.5, Sub, false, null);
+                sub.TextWrapping = TextWrapping.Wrap;
+                sub.TextTrimming = TextTrimming.None;
+                sub.Margin = new Thickness(0, 3, 0, 0);
+                texts.Children.Add(sub);
+                Grid.SetColumn(texts, 1);
+                g.Children.Add(texts);
+            }
+            else
+            {
+                label.Margin = new Thickness(14, 0, 0, 0);
+                Grid.SetColumn(label, 1);
+                g.Children.Add(label);
+            }
             var c = (FrameworkElement)control;
             c.VerticalAlignment = VerticalAlignment.Center;
             Grid.SetColumn(c, 2);
@@ -703,6 +749,17 @@ namespace OsuLazerFix
                 UpdateAutoBox();
             });
             body.Children.Add(SettingsRow("\uE72C", out lblAuto, autoBox));
+
+            // two-monitor mode (experimental): the game stays in exclusive fullscreen while a window on another monitor is active
+            dualBox = new Border { Width = 30, Height = 30, CornerRadius = new CornerRadius(9), BorderThickness = new Thickness(1.6) };
+            dualGlyph = Glyph("\uE73E", 14, Dark);
+            dualBox.Child = dualGlyph;
+            Wire(dualBox, ToggleDualMonitor);
+            var dualRow = SettingsRow("\uE7F4", out lblDual, out lblDualSub, dualBox, true);
+            dualRow.Height = double.NaN;
+            dualRow.MinHeight = 76;
+            dualRow.Padding = new Thickness(16, 12, 16, 12);
+            body.Children.Add(dualRow);
 
             // check for updates button
             var check = new Border { Height = 48, CornerRadius = new CornerRadius(14), Background = Card2, Margin = new Thickness(0, 0, 0, 12) };
@@ -883,11 +940,52 @@ namespace OsuLazerFix
             txtAboutTitle.Text = Loc.T("about");
             lblLang.Text = Loc.T("set.lang");
             lblAuto.Text = Loc.T("set.auto");
+            lblDual.Text = Loc.T("set.dual");
+            lblDualSub.Text = Loc.T("set.dualSub");
             lblFolder.Text = Loc.T("set.folder");
             txtCheck.Text = Loc.T("set.check");
             txtLangValue.Text = Loc.Lang == 1 ? "Русский" : "English";
             txtAboutNote.Text = Loc.T("about.note");
             UpdateBanner();
+        }
+
+        private void UpdateDualBox()
+        {
+            bool on = DualMonitor.IsOn();
+            dualBox.Background = on ? (Brush)Pink : Card2;
+            dualBox.BorderBrush = on ? (Brush)Pink : Line;
+            dualGlyph.Visibility = on ? Visibility.Visible : Visibility.Hidden;
+        }
+
+        private void ToggleDualMonitor()
+        {
+            // the game reads the setting when it starts and rewrites framework.ini when it closes
+            if (Patcher.IsGameRunning())
+            {
+                ShowDialog(Loc.T("msg.error"), Loc.T("err.running"), Loc.T("btn.ok"), null, null);
+                return;
+            }
+
+            bool turnOn = !DualMonitor.IsOn();
+            dualBox.IsEnabled = false;
+
+            Task.Run(() => DualMonitor.Set(turnOn)).ContinueWith(t =>
+            {
+                Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    dualBox.IsEnabled = true;
+                    UpdateDualBox();
+
+                    if (t.Status != TaskStatus.RanToCompletion)
+                    {
+                        string why = t.Exception == null ? "" : t.Exception.GetBaseException().Message;
+                        ShowDialog(Loc.T("msg.error"), Loc.T("dual.fail", why), Loc.T("btn.ok"), null, null);
+                        return;
+                    }
+
+                    ShowDialog(Loc.T("set.dual"), Loc.T(turnOn ? "dual.on" : "dual.off"), Loc.T("btn.ok"), null, null);
+                }));
+            });
         }
 
         private void UpdateAutoBox()
@@ -957,13 +1055,7 @@ namespace OsuLazerFix
                 }
             }
 
-            // open the tab of the installed game version the first time
-            if (!groupsInitialised && game != null)
-            {
-                expanded.Add(game.Version);
-                groupsInitialised = true;
-            }
-
+            // all version tabs start closed; the user opens the one they need
             // keep the selection if it is still usable, otherwise pick the installed patch, otherwise the first usable one
             PatchItem current = Selected();
             if (current == null || !current.Enabled)
@@ -1052,7 +1144,7 @@ namespace OsuLazerFix
 
             if (open)
             {
-                var body = new StackPanel { Margin = new Thickness(10, 8, 0, 0) };
+                var body = new StackPanel { Margin = new Thickness(10, 8, 10, 0) };
                 foreach (PatchItem it in group) body.Children.Add(MakeCard(it));
                 wrap.Children.Add(body);
             }

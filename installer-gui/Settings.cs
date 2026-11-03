@@ -3,11 +3,12 @@ using System.IO;
 
 namespace OsuLazerFix
 {
-    /// <summary>Remembers the language and the last chosen game folder.</summary>
+    /// <summary>Remembers the language, the last chosen game folder and a few switches.</summary>
     internal static class Settings
     {
         public static string Folder = "";
         public static bool AutoUpdate = true;
+        public static bool DualChangedMinimise;   // two-monitor mode turned off "Minimise osu! when switching to another app"
 
         private static string FilePath
         {
@@ -32,6 +33,7 @@ namespace OsuLazerFix
                     if (key == "Lang") Loc.Lang = val == "ru" ? 1 : 0;
                     else if (key == "Folder") Folder = val;
                     else if (key == "AutoUpdate") AutoUpdate = val != "0";
+                    else if (key == "DualChangedMinimise") DualChangedMinimise = val == "1";
                 }
             }
             catch (Exception)
@@ -45,7 +47,7 @@ namespace OsuLazerFix
             try
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(FilePath));
-                File.WriteAllLines(FilePath, new[] { "Lang=" + (Loc.Lang == 1 ? "ru" : "en"), "Folder=" + Folder, "AutoUpdate=" + (AutoUpdate ? "1" : "0") });
+                File.WriteAllLines(FilePath, new[] { "Lang=" + (Loc.Lang == 1 ? "ru" : "en"), "Folder=" + Folder, "AutoUpdate=" + (AutoUpdate ? "1" : "0"), "DualChangedMinimise=" + (DualChangedMinimise ? "1" : "0") });
             }
             catch (Exception)
             {

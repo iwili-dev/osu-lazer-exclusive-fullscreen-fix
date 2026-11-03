@@ -16,7 +16,7 @@ namespace OsuLazerFix
 
         private static readonly Dictionary<string, string[]> map = new Dictionary<string, string[]>
         {
-            ["title"] = new[] { "osu!lazer Fix by iwili", "osu!lazer Fix by iwili" },
+            ["title"] = new[] { "osu!lazer Fix", "osu!lazer Fix" },
             ["lbl.game"] = new[] { "Game", "Игра" },
             ["lbl.status"] = new[] { "Status", "Статус" },
             ["short.none"] = new[] { "Not installed", "Не установлен" },
@@ -40,6 +40,11 @@ namespace OsuLazerFix
             ["set.auto"] = new[] { "Auto-update", "Автообновление" },
             ["set.check"] = new[] { "Check for updates", "Проверить обновления" },
             ["set.folder"] = new[] { "Game folder", "Папка игры" },
+            ["set.dual"] = new[] { "Two-monitor mode", "Режим для двух мониторов" },
+            ["set.dualSub"] = new[] { "Clicking a window on another monitor doesn't throw the game out of fullscreen. Experimental", "Клик по окну на другом мониторе не выкидывает игру из полноэкранного режима. Экспериментально" },
+            ["dual.on"] = new[] { "Two-monitor mode is on.\n\nThe game now stays in fullscreen when you click OBS, chat or a browser on another monitor. For this, the game setting \"Minimise osu! when switching to another app\" was turned off.\n\nStart the game again. You need the newest patch: if the big button says Update, press it.", "Режим для двух мониторов включён.\n\nТеперь игра остаётся в полноэкранном режиме, когда вы кликаете по OBS, чату или браузеру на другом мониторе. Для этого в игре выключена настройка «Сворачивать osu! при переключении на другое приложение».\n\nЗапустите игру заново. Нужен самый новый патч: если на большой кнопке написано «Обновить», нажмите её." },
+            ["dual.off"] = new[] { "Two-monitor mode is off. Start the game again.", "Режим для двух мониторов выключен. Запустите игру заново." },
+            ["dual.fail"] = new[] { "Couldn't change the setting: {0}", "Не удалось изменить настройку: {0}" },
             ["about.note"] = new[] { "Made for osu!lazer", "Сделано для osu!lazer" },
             ["update.avail"] = new[] { "Update {0} available", "Доступно обновление {0}" },
             ["update.ready"] = new[] { "Updated to {0}. Restart to use it", "Обновлено до {0}. Перезапустите" },
