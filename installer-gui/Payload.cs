@@ -291,6 +291,83 @@ namespace OsuLazerFix
             return string.Equals(HashBytes(data), f.Sha256, StringComparison.OrdinalIgnoreCase) ? data : null;
         }
 
+        // ------------------------------------------------------------ cleaning up
+
+        /// <summary>Size of the downloaded patch files (the cache folder) in bytes.</summary>
+        public static long CacheSize()
+        {
+            long total = 0;
+            try
+            {
+                var files = new List<string>();
+                if (Directory.Exists(CacheRoot) && !IsLink(CacheRoot)) Walk(CacheRoot, files, new List<string>());
+                foreach (string f in files)
+                {
+                    try { total += new FileInfo(f).Length; }
+                    catch (Exception) { }
+                }
+            }
+            catch (Exception)
+            {
+                // an unreadable cache counts as what could be read
+            }
+            return total;
+        }
+
+        /// <summary>
+        /// Deletes every downloaded patch file. The game folder, the backup of the original files and the saved online list are not touched.
+        /// Throws the first error if some file could not be deleted (the rest are deleted anyway).
+        /// </summary>
+        public static void ClearCache()
+        {
+            lock (hashMemo) hashMemo.Clear();
+            if (!Directory.Exists(CacheRoot) || IsLink(CacheRoot)) return;
+
+            var files = new List<string>();
+            var dirs = new List<string>();
+            Walk(CacheRoot, files, dirs);
+
+            Exception first = null;
+            foreach (string f in files)
+            {
+                try
+                {
+                    File.SetAttributes(f, FileAttributes.Normal);
+                    File.Delete(f);
+                }
+                catch (Exception e)
+                {
+                    if (first == null) first = e;
+                }
+            }
+
+            dirs.Add(CacheRoot);   // Walk lists the deepest folders first
+            foreach (string d in dirs)
+            {
+                try { Directory.Delete(d, false); }
+                catch (Exception) { }   // not empty: something could not be deleted, the error is reported above
+            }
+
+            if (first != null) throw first;
+        }
+
+        /// <summary>All files and folders under dir, deepest folders first. Links to other places are never followed.</summary>
+        private static void Walk(string dir, List<string> files, List<string> dirs)
+        {
+            files.AddRange(Directory.GetFiles(dir));
+            foreach (string d in Directory.GetDirectories(dir))
+            {
+                if (IsLink(d)) continue;
+                Walk(d, files, dirs);
+                dirs.Add(d);
+            }
+        }
+
+        private static bool IsLink(string path)
+        {
+            return (File.GetAttributes(path) & FileAttributes.ReparsePoint) != 0;
+        }
+
         // ------------------------------------------------------------ hashes
 
         public static string HashBytes(byte[] data)

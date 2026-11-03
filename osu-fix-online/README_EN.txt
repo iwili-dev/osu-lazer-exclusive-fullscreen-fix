@@ -91,6 +91,14 @@ works as the official one.
   osu-lazer-fix.exe. Without the program: run  setx OSU_D3D11_KEEP_ON_OTHER_MONITOR 1
   in cmd, turn off "Minimise osu! when switching to another app" in the game
   (Settings - Graphics - Layout) and start the game again.
+- Low latency (experimental, off by default): in exclusive fullscreen only
+  one frame waits in the render queue, so what you press shows up on the
+  screen sooner (FPS can be a little lower). Turn on "Low latency" in the
+  settings of osu-lazer-fix.exe. Without the program, run in cmd:
+    setx OSU_D3D11_FRAME_LATENCY 1
+  and start the game again. To turn it off:
+    reg delete HKCU\Environment /v OSU_D3D11_FRAME_LATENCY /f
+  If the game stutters with it, turn it off.
 - Switching between the ONLINE and PARTIAL OFFLINE editions: run apply.bat of
   the other edition. revert.bat of either edition removes the fix completely.
 

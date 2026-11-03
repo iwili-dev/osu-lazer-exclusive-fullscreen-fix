@@ -9,7 +9,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <ApplicationIcon>app.ico</ApplicationIcon>
     <!-- The program compares this with "app.version" in update/manifest.json. Raise it for every new exe. -->
-    <Version>1.1.0</Version>
+    <Version>1.2.0</Version>
     <Product>osu!lazer Fix</Product>
     <Company>iwili</Company>
     <DebugType>none</DebugType>

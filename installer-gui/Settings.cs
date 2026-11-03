@@ -9,6 +9,7 @@ namespace OsuLazerFix
         public static string Folder = "";
         public static bool AutoUpdate = true;
         public static bool DualChangedMinimise;   // two-monitor mode turned off "Minimise osu! when switching to another app"
+        public static bool Animations = true;     // moving background and smooth transitions
 
         private static string FilePath
         {
@@ -23,6 +24,8 @@ namespace OsuLazerFix
         {
             try
             {
+                // without a saved choice, follow "Animation effects" in the Windows settings
+                Animations = System.Windows.SystemParameters.ClientAreaAnimation;
                 if (!File.Exists(FilePath)) return;
                 foreach (string line in File.ReadAllLines(FilePath))
                 {
@@ -34,6 +37,7 @@ namespace OsuLazerFix
                     else if (key == "Folder") Folder = val;
                     else if (key == "AutoUpdate") AutoUpdate = val != "0";
                     else if (key == "DualChangedMinimise") DualChangedMinimise = val == "1";
+                    else if (key == "Animations") Animations = val != "0";
                 }
             }
             catch (Exception)
@@ -47,7 +51,7 @@ namespace OsuLazerFix
             try
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(FilePath));
-                File.WriteAllLines(FilePath, new[] { "Lang=" + (Loc.Lang == 1 ? "ru" : "en"), "Folder=" + Folder, "AutoUpdate=" + (AutoUpdate ? "1" : "0"), "DualChangedMinimise=" + (DualChangedMinimise ? "1" : "0") });
+                File.WriteAllLines(FilePath, new[] { "Lang=" + (Loc.Lang == 1 ? "ru" : "en"), "Folder=" + Folder, "AutoUpdate=" + (AutoUpdate ? "1" : "0"), "DualChangedMinimise=" + (DualChangedMinimise ? "1" : "0"), "Animations=" + (Animations ? "1" : "0") });
             }
             catch (Exception)
             {

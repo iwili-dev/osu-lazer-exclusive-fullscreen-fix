@@ -34,6 +34,28 @@ mode. The patched `D3D11Swapchain` in Veldrid uses this as the trigger to enter 
 fullscreen (the swapchain is recreated in the classic bitblt model while exclusive) and leaves it when the
 window loses focus.
 
+Environment variables the patched Veldrid reads when the game starts (user variables; the program sets the
+last two from its settings):
+
+| Variable | Effect |
+|---|---|
+| `OSU_D3D11_EXCLUSIVE=0` | exclusive fullscreen off, the game behaves like the original |
+| `OSU_D3D11_KEEP_ON_OTHER_MONITOR=1` | Two-monitor mode: stay exclusive while a window on another monitor has focus |
+| `OSU_D3D11_FRAME_LATENCY=1` | Low latency: `SetMaximumFrameLatency(1)` while exclusive (2..16 allow more frames, unset or 0 = DXGI default) |
+
+## Program screenshots without Windows
+
+`installer-gui` has a preview mode for screenshots: build with `-p:DefineConstants=PREVIEW` and start the exe with
+the environment variable `OSUFIX_PREVIEW` set to a comma list of steps, for example `settings`, `about`, `open`,
+`banner`, `busy`, `dialog`, `ru`. The normal build does not contain this code.
+
+## Program icon
+
+`installer-gui/design/app-icon.py` draws the icon and writes `installer-gui/app.ico` (16 to 256 px, simpler drawing
+for 16 to 24 px) and the PNG files in `installer-gui/design`. It needs Python 3 with pycairo, numpy, opencv-python and
+Pillow: run `python app-icon.py` in `installer-gui/design`, then build the program again. The logo inside the program
+is taken from `app.ico`, so there is nothing else to change.
+
 ## Online list and program updates
 
 The installer program (`installer-gui`, `osu-lazer-fix.exe`) reads `update/manifest.json` from this
