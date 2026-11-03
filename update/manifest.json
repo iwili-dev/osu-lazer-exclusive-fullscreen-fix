@@ -1,11 +1,11 @@
 {
   "format": 1,
-  "updated": "2026-11-03 18:16 UTC",
+  "updated": "2026-11-03 19:10 UTC",
   "app": {
-    "version": "1.2.0",
-    "url": "https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/download/app-1.2.0/osu-lazer-fix.exe",
-    "sha256": "C67781399444D6F02BE4036AF85BBC8AA9B5D4C0607842E1C2C87FD722533CD3",
-    "size": 333312
+    "version": "1.2.1",
+    "url": "https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/download/app-1.2.1/osu-lazer-fix.exe",
+    "sha256": "F39149EDA0F0234D5D191154C9978D788918D3F35CC02D8F2296AC72C06B7C7F",
+    "size": 334336
   },
   "patches": [
     {

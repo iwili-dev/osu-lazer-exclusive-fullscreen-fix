@@ -10,13 +10,13 @@
 
 <br>
 
-<a href="https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/download/app-1.2.0/osu-lazer-fix.exe"><img src="https://img.shields.io/badge/Скачать-osu--lazer--fix.exe-ff7eb6?style=for-the-badge&logo=windows&logoColor=white" alt="Скачать osu-lazer-fix.exe"></a>
+<a href="https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/download/app-1.2.1/osu-lazer-fix.exe"><img src="https://img.shields.io/badge/Скачать-osu--lazer--fix.exe-ff7eb6?style=for-the-badge&logo=windows&logoColor=white" alt="Скачать osu-lazer-fix.exe"></a>
 
 <sub>Windows 10 / 11 · без установки, дополнительные программы не нужны</sub>
 
 <br>
 
-[![Программа](https://img.shields.io/badge/программа-1.2.0-ffbad8?style=flat-square)](https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/tag/app-1.2.0)
+[![Программа](https://img.shields.io/badge/программа-1.2.1-ffbad8?style=flat-square)](https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/tag/app-1.2.1)
 [![Игра](https://img.shields.io/badge/osu!lazer-2026.1005.0-ff66aa?style=flat-square)](https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/tag/2026.1005.0-3)
 ![Рендерер](https://img.shields.io/badge/рендерер-Direct3D%2011-444?style=flat-square)
 ![Платформа](https://img.shields.io/badge/платформа-Windows-444?style=flat-square)
@@ -38,7 +38,7 @@
 
 ## Установка
 
-1. **Скачайте** [`osu-lazer-fix.exe`](https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/download/app-1.2.0/osu-lazer-fix.exe).
+1. **Скачайте** [`osu-lazer-fix.exe`](https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/download/app-1.2.1/osu-lazer-fix.exe).
 2. **Закройте osu!lazer.**
 3. **Запустите exe.** Файл не подписан, поэтому Windows SmartScreen может показать синее окно. Нажмите *Подробнее*, затем *Выполнить в любом случае*. По той же причине на файл могут ругаться некоторые антивирусы. Весь исходный код лежит в этом репозитории, а в [BUILDING.md](BUILDING.md) написано, как собрать exe самому.
 4. **Верх окна.** Там написана текущая версия игры, которая установлена на вашем устройстве. Программа ищет игру в `%LOCALAPPDATA%\osulazer\current`. Если игра лежит в другом месте, укажите папку в настройках.
@@ -153,7 +153,7 @@ Veldrid, графический слой под osu!framework, создаёт fl
 
 ## Ссылки
 
-- [Релиз программы 1.2.0](https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/tag/app-1.2.0) (exe)
+- [Релиз программы 1.2.1](https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/tag/app-1.2.1) (exe)
 - [Релиз патча 2026.1005.0-3](https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/tag/2026.1005.0-3) (батники)
 - [Форк Veldrid](https://github.com/iwili-dev/veldrid)
 
