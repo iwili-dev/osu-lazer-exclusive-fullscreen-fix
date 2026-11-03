@@ -138,6 +138,12 @@ namespace OsuLazerFix
             mouseInside = inside;
         }
 
+        /// <summary>The cursor has left: the light fades out where it was last seen.</summary>
+        public void MouseOut()
+        {
+            mouseInside = false;
+        }
+
         /// <summary>Starts or stops the animation (Anim.Lively) and draws the still frame when it is off.</summary>
         public void Refresh()
         {

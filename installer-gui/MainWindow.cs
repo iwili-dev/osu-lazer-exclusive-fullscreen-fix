@@ -250,13 +250,16 @@ namespace OsuLazerFix
                     if (!Anim.Lively) UpdateLively();
                 }
             };
-            frame.MouseLeave += (s, e) => plexus.SetMouse(e.GetPosition(plexus), false);
+            // WPF can give 0,0 in MouseLeave (a click on the background starts DragMove, and then it does),
+            // which sent the cursor light flying into the top left corner. So ask Windows where the cursor is.
+            frame.MouseLeave += delegate { TrackCursor(); };
 
             // drag the window by any empty place
             frame.MouseLeftButtonDown += delegate (object s, MouseButtonEventArgs e)
             {
                 if (e.Handled) return;
                 try { DragMove(); } catch (InvalidOperationException) { }
+                TrackCursor();
             };
 
             // a click outside the search box takes the focus away from it
@@ -266,6 +269,43 @@ namespace OsuLazerFix
                     Keyboard.ClearFocus();
             };
             PreviewKeyDown += OnKey;
+        }
+
+        [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
+        private struct CursorPoint
+        {
+            public int X, Y;
+        }
+
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        private static extern bool GetCursorPos(out CursorPoint point);
+
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        private static extern IntPtr WindowFromPoint(CursorPoint point);
+
+        /// <summary>
+        /// Gives the web the real cursor position, taken from Windows and not from the WPF event. The light stays
+        /// while the cursor is over this window and fades out at the place where the cursor left it.
+        /// </summary>
+        private void TrackCursor()
+        {
+            try
+            {
+                CursorPoint pt;
+                if (PresentationSource.FromVisual(plexus) == null || !GetCursorPos(out pt))
+                {
+                    plexus.MouseOut();
+                    return;
+                }
+                Point p = plexus.PointFromScreen(new Point(pt.X, pt.Y));
+                bool inside = p.X >= 0 && p.Y >= 0 && p.X < plexus.ActualWidth && p.Y < plexus.ActualHeight
+                    && WindowFromPoint(pt) == new System.Windows.Interop.WindowInteropHelper(this).Handle;
+                plexus.SetMouse(p, inside);
+            }
+            catch (Exception)
+            {
+                plexus.MouseOut();
+            }
         }
 
         private void LoadWindowIcon()
