@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="installer-gui/design/app-icon-256.png" width="112" alt="">
+
 # osu!lazer Exclusive Fullscreen Fix
 
 **Настоящий эксклюзивный полноэкранный режим для osu!lazer на Direct3D 11. Убирает импут лаг.**
@@ -8,14 +10,14 @@
 
 <br>
 
-<a href="https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/download/app-1.1.0/osu-lazer-fix.exe"><img src="https://img.shields.io/badge/Скачать-osu--lazer--fix.exe-ff7eb6?style=for-the-badge&logo=windows&logoColor=white" alt="Скачать osu-lazer-fix.exe"></a>
+<a href="https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/download/app-1.2.0/osu-lazer-fix.exe"><img src="https://img.shields.io/badge/Скачать-osu--lazer--fix.exe-ff7eb6?style=for-the-badge&logo=windows&logoColor=white" alt="Скачать osu-lazer-fix.exe"></a>
 
 <sub>Windows 10 / 11 · без установки, дополнительные программы не нужны</sub>
 
 <br>
 
-[![Программа](https://img.shields.io/badge/программа-1.1.0-ffbad8?style=flat-square)](https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/tag/app-1.1.0)
-[![Игра](https://img.shields.io/badge/osu!lazer-2026.1005.0-ff66aa?style=flat-square)](https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/tag/2026.1005.0-2)
+[![Программа](https://img.shields.io/badge/программа-1.2.0-ffbad8?style=flat-square)](https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/tag/app-1.2.0)
+[![Игра](https://img.shields.io/badge/osu!lazer-2026.1005.0-ff66aa?style=flat-square)](https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/tag/2026.1005.0-3)
 ![Рендерер](https://img.shields.io/badge/рендерер-Direct3D%2011-444?style=flat-square)
 ![Платформа](https://img.shields.io/badge/платформа-Windows-444?style=flat-square)
 
@@ -27,7 +29,7 @@
 
 В osu!lazer режим «Fullscreen» на самом деле не эксклюзивный. Игра рисует в оконную flip-цепочку и ни разу не просит у Windows эксклюзивный полноэкранный режим, поэтому картинка всё равно идёт через композитор рабочего стола. Отсюда лишний импут лаг.
 
-Фикс заставляет игру занимать настоящий DXGI-эксклюзив, когда в настройках выбран Fullscreen и Direct3D 11. Когда окно теряет фокус, игра выходит из эксклюзива и возвращается в него, когда вы возвращаетесь в игру, так что Alt+Tab работает (экран один раз моргает). Для стримеров с 2+ мониторами в настройках программы есть экспериментальный «Режим для двух мониторов»: игра остаётся в эксклюзиве, пока вы кликаете по OBS или чату на другом мониторе.
+Фикс заставляет игру занимать настоящий DXGI-эксклюзив, когда в настройках выбран Fullscreen и Direct3D 11. Когда окно теряет фокус, игра выходит из эксклюзива и возвращается в него, когда вы возвращаетесь в игру, так что Alt+Tab работает (экран один раз моргает). Для стримеров с 2+ мониторами в настройках программы есть экспериментальный «Режим для двух мониторов»: игра остаётся в эксклюзиве, пока вы кликаете по OBS или чату на другом мониторе. Ещё есть экспериментальный переключатель «Низкая задержка»: в эксклюзиве в очереди отрисовки ждёт только один кадр, поэтому нажатия быстрее появляются на экране.
 
 Фикс ставится поверх обычной игры заменой DLL. `osu!.exe` и `osu.Game.dll` не трогаются.
 
@@ -36,7 +38,7 @@
 
 ## Установка
 
-1. **Скачайте** [`osu-lazer-fix.exe`](https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/download/app-1.1.0/osu-lazer-fix.exe).
+1. **Скачайте** [`osu-lazer-fix.exe`](https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/download/app-1.2.0/osu-lazer-fix.exe).
 2. **Закройте osu!lazer.**
 3. **Запустите exe.** Файл не подписан, поэтому Windows SmartScreen может показать синее окно. Нажмите *Подробнее*, затем *Выполнить в любом случае*. По той же причине на файл могут ругаться некоторые антивирусы. Весь исходный код лежит в этом репозитории, а в [BUILDING.md](BUILDING.md) написано, как собрать exe самому.
 4. **Верх окна.** Там написана текущая версия игры, которая установлена на вашем устройстве. Программа ищет игру в `%LOCALAPPDATA%\osulazer\current`. Если игра лежит в другом месте, укажите папку в настройках.
@@ -54,6 +56,23 @@
 | Недоступно | ничего | мультиплеер, ранкед, отправка скоров |
 
 **Partial offline.** В этом издании серверы не принимают игру как официальный клиент, поэтому игра показывает «Realtime online functionality is not supported» и «SCORE WILL NOT BE SUBMITTED». Так и должно быть.
+
+## Настройки
+
+Кнопка с шестерёнкой справа вверху открывает настройки.
+
+| Настройка | Что делает |
+|---|---|
+| **Режим для двух мониторов** (бета) | Игра остаётся в эксклюзиве, пока вы кликаете по OBS или чату на другом мониторе. |
+| **Низкая задержка** (бета) | В эксклюзиве в очереди отрисовки ждёт только один кадр, поэтому нажатия быстрее появляются на экране. FPS может быть чуть ниже. По умолчанию выключена. |
+| **Папка игры** | Где лежит игра, если она не в `%LOCALAPPDATA%\osulazer`. |
+| **Язык** | Русский или английский. |
+| **Автообновление** | Программа обновляется сама при запуске. |
+| **Анимации** | Живой фон и плавные переходы. На слабом ПК их можно выключить. |
+| **Скачанные версии** | Файлы патчей, которые скачала программа. **Удалить** освобождает место, установленный фикс продолжает работать. |
+| **Проверить обновления** | Заново читает список патчей и новую версию программы. |
+
+Режим для двух мониторов и низкую задержку игра читает при запуске, поэтому после переключения перезапустите игру. Для низкой задержки нужен патч 2026.1005.0-3 или новее: если на большой кнопке написано «Обновить», нажмите её.
 
 ## Удаление фикса
 
@@ -100,6 +119,12 @@
 </details>
 
 <details>
+<summary><b>С низкой задержкой игра подтормаживает</b></summary>
+
+Выключите «Низкую задержку» в настройках программы и перезапустите игру. Это экспериментальная функция: на некоторых ПК одного кадра в очереди мало, и FPS падает или становится неровным.
+</details>
+
+<details>
 <summary><b>Плохо работает Alt+Tab</b></summary>
 
 Alt+Tab в эксклюзивном полноэкранном режиме работает плохо: это особенности самого режима ради максимальной производительности.
@@ -107,11 +132,18 @@ Alt+Tab в эксклюзивном полноэкранном режиме ра
 
 ## Батники вместо exe
 
-Если удобнее скрипты, в [релизе `2026.1005.0-2`](https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/tag/2026.1005.0-2) лежат два zip-архива, по одному на издание. Распакуйте нужный, `apply.bat` ставит фикс, `revert.bat` убирает. У exe и батников общий бэкап, так что они могут откатывать работу друг друга.
+Если удобнее скрипты, в [релизе `2026.1005.0-3`](https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/tag/2026.1005.0-3) лежат два zip-архива, по одному на издание. Распакуйте нужный, `apply.bat` ставит фикс, `revert.bat` убирает. У exe и батников общий бэкап, так что они могут откатывать работу друг друга.
+
+Без программы настройки задаются переменными окружения (выполните команды в cmd и перезапустите игру):
+
+- Низкая задержка, включить: `setx OSU_D3D11_FRAME_LATENCY 1`, выключить: `reg delete HKCU\Environment /v OSU_D3D11_FRAME_LATENCY /f`
+- Режим для двух мониторов, включить: `setx OSU_D3D11_KEEP_ON_OTHER_MONITOR 1`, и выключите в игре «Сворачивать osu! при переключении на другое приложение» (Настройки - Графика - Параметры экрана)
 
 ## Как это работает
 
 Veldrid, графический слой под osu!framework, создаёт flip-цепочку и никогда не вызывает `SetFullscreenState`. На такой цепочке вызов падает с ошибкой `DXGI_ERROR_INVALID_CALL`. Фикс на время эксклюзива переключается на классическую bitblt-цепочку, а при выходе возвращает flip.
+
+У классической цепочки нет frame latency waitable object, поэтому действует очередь отрисовки DXGI (по умолчанию до 3 кадров). С низкой задержкой (`OSU_D3D11_FRAME_LATENCY=1`) патч вызывает `IDXGIDevice1::SetMaximumFrameLatency(1)` на время эксклюзива и сбрасывает её при выходе. При входе в эксклюзив патч даёт DXGI самому выбрать точную частоту текущего режима экрана (например, 143,98 Гц вместо округлённых 144), как советует Microsoft, чтобы кадры переключались, а не копировались.
 
 Патч — это три файла в Veldrid. Его можно прочитать как diff в форке: [iwili-dev/veldrid](https://github.com/iwili-dev/veldrid/tree/exclusive-fullscreen) (ветка `exclusive-fullscreen`). Издание Partial offline дополнительно меняет одну строку в osu!framework, лимит FPS.
 
@@ -121,8 +153,8 @@ Veldrid, графический слой под osu!framework, создаёт fl
 
 ## Ссылки
 
-- [Релиз программы 1.1.0](https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/tag/app-1.1.0) (exe)
-- [Релиз патча 2026.1005.0-2](https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/tag/2026.1005.0-2) (батники)
+- [Релиз программы 1.2.0](https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/tag/app-1.2.0) (exe)
+- [Релиз патча 2026.1005.0-3](https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/tag/2026.1005.0-3) (батники)
 - [Форк Veldrid](https://github.com/iwili-dev/veldrid)
 
 ## Авторство и лицензии

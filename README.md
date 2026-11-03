@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="installer-gui/design/app-icon-256.png" width="112" alt="">
+
 # osu!lazer Exclusive Fullscreen Fix
 
 **Real exclusive fullscreen mode for osu!lazer on Direct3D 11. Removes input lag.**
@@ -8,14 +10,14 @@
 
 <br>
 
-<a href="https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/download/app-1.1.0/osu-lazer-fix.exe"><img src="https://img.shields.io/badge/Download-osu--lazer--fix.exe-ff7eb6?style=for-the-badge&logo=windows&logoColor=white" alt="Download osu-lazer-fix.exe"></a>
+<a href="https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/download/app-1.2.0/osu-lazer-fix.exe"><img src="https://img.shields.io/badge/Download-osu--lazer--fix.exe-ff7eb6?style=for-the-badge&logo=windows&logoColor=white" alt="Download osu-lazer-fix.exe"></a>
 
 <sub>Windows 10 / 11 · no installation, no additional programs needed</sub>
 
 <br>
 
-[![Program](https://img.shields.io/badge/program-1.1.0-ffbad8?style=flat-square)](https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/tag/app-1.1.0)
-[![Game](https://img.shields.io/badge/osu!lazer-2026.1005.0-ff66aa?style=flat-square)](https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/tag/2026.1005.0-2)
+[![Program](https://img.shields.io/badge/program-1.2.0-ffbad8?style=flat-square)](https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/tag/app-1.2.0)
+[![Game](https://img.shields.io/badge/osu!lazer-2026.1005.0-ff66aa?style=flat-square)](https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/tag/2026.1005.0-3)
 ![Renderer](https://img.shields.io/badge/renderer-Direct3D%2011-444?style=flat-square)
 ![Platform](https://img.shields.io/badge/platform-Windows-444?style=flat-square)
 
@@ -27,7 +29,7 @@
 
 In osu!lazer, the "Fullscreen" mode is not actually exclusive. The game draws into a windowed flip swapchain and never asks Windows for exclusive fullscreen mode, so the picture still goes through the desktop compositor. That is where the extra input lag comes from.
 
-The fix makes the game take real DXGI exclusive fullscreen when Fullscreen and Direct3D 11 are selected in the settings. When the window loses focus, the game leaves exclusive mode and goes back into it when you return, so Alt+Tab works (the screen blinks once). For streamers with 2+ monitors there is an experimental "Two-monitor mode" in the program settings: the game stays in exclusive fullscreen while you click OBS or chat on another monitor.
+The fix makes the game take real DXGI exclusive fullscreen when Fullscreen and Direct3D 11 are selected in the settings. When the window loses focus, the game leaves exclusive mode and goes back into it when you return, so Alt+Tab works (the screen blinks once). For streamers with 2+ monitors there is an experimental "Two-monitor mode" in the program settings: the game stays in exclusive fullscreen while you click OBS or chat on another monitor. There is also an experimental "Low latency" switch: in exclusive fullscreen only one frame waits in the render queue, so what you press shows up on the screen sooner.
 
 The fix is installed on top of the regular game by replacing a DLL. `osu!.exe` and `osu.Game.dll` are not touched.
 
@@ -36,7 +38,7 @@ The fix is installed on top of the regular game by replacing a DLL. `osu!.exe` a
 
 ## Installation
 
-1. **Download** [`osu-lazer-fix.exe`](https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/download/app-1.1.0/osu-lazer-fix.exe).
+1. **Download** [`osu-lazer-fix.exe`](https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/download/app-1.2.0/osu-lazer-fix.exe).
 2. **Close osu!lazer.**
 3. **Run the exe.** The file is not signed, so Windows SmartScreen may show a blue window. Click *More info*, then *Run anyway*. For the same reason, some antivirus programs may complain about the file. The entire source code is in this repository, and [BUILDING.md](BUILDING.md) explains how to build the exe yourself.
 4. **Top of the window.** It shows the current game version installed on your device. The program looks for the game in `%LOCALAPPDATA%\osulazer\current`. If the game is located elsewhere, specify the folder in the settings.
@@ -54,6 +56,23 @@ The fix is installed on top of the regular game by replacing a DLL. `osu!.exe` a
 | Unavailable | nothing | multiplayer, ranked, score submission |
 
 **Partial offline.** In this edition the servers do not accept the game as an official client, so the game shows "Realtime online functionality is not supported" and "SCORE WILL NOT BE SUBMITTED". This is expected.
+
+## Settings
+
+The gear button at the top right opens the settings.
+
+| Setting | What it does |
+|---|---|
+| **Two-monitor mode** (beta) | The game stays in exclusive fullscreen while you click OBS or chat on another monitor. |
+| **Low latency** (beta) | In exclusive fullscreen only one frame waits in the render queue, so what you press shows up on the screen sooner. FPS can be a little lower. Off by default. |
+| **Game folder** | Where the game is, if it is not in `%LOCALAPPDATA%\osulazer`. |
+| **Language** | English or Russian. |
+| **Auto-update** | The program updates itself when it starts. |
+| **Animations** | The moving background and smooth transitions. You can turn them off on a weak PC. |
+| **Downloaded versions** | The patch files the program has downloaded. **Delete** frees the space; the installed fix keeps working. |
+| **Check for updates** | Reads the list of patches and the newest version of the program again. |
+
+The game reads Two-monitor mode and Low latency when it starts, so start the game again after you change them. Low latency needs the patch 2026.1005.0-3 or newer: if the big button says "Update", press it.
 
 ## Removing the fix
 
@@ -100,6 +119,12 @@ This happens on weak devices. Restart the game, it may take several restarts. Op
 </details>
 
 <details>
+<summary><b>The game stutters with Low latency</b></summary>
+
+Turn Low latency off in the program settings and start the game again. It is experimental: on some PCs one frame in the queue is too little, and FPS drops or becomes uneven.
+</details>
+
+<details>
 <summary><b>Alt+Tab works poorly</b></summary>
 
 Alt+Tab works poorly in exclusive fullscreen mode: this is a feature of the mode itself, for the sake of maximum performance.
@@ -107,11 +132,18 @@ Alt+Tab works poorly in exclusive fullscreen mode: this is a feature of the mode
 
 ## Batch files instead of the exe
 
-If you prefer scripts, the [`2026.1005.0-2` release](https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/tag/2026.1005.0-2) contains two zip archives, one per edition. Unpack the one you need, `apply.bat` installs the fix, `revert.bat` removes it. The exe and the batch files share the same backup, so they can undo each other's work.
+If you prefer scripts, the [`2026.1005.0-3` release](https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/tag/2026.1005.0-3) contains two zip archives, one per edition. Unpack the one you need, `apply.bat` installs the fix, `revert.bat` removes it. The exe and the batch files share the same backup, so they can undo each other's work.
+
+Without the program, the settings are environment variables (run the commands in cmd, then start the game again):
+
+- Low latency on: `setx OSU_D3D11_FRAME_LATENCY 1`, off: `reg delete HKCU\Environment /v OSU_D3D11_FRAME_LATENCY /f`
+- Two-monitor mode on: `setx OSU_D3D11_KEEP_ON_OTHER_MONITOR 1`, and turn off "Minimise osu! when switching to another app" in the game (Settings - Graphics - Layout)
 
 ## How it works
 
 Veldrid, the graphics layer under osu!framework, creates a flip swapchain and never calls `SetFullscreenState`. On such a swapchain the call fails with the error `DXGI_ERROR_INVALID_CALL`. For the duration of exclusive mode, the fix switches to a classic bitblt swapchain, and on exit it returns to flip.
+
+The classic swapchain has no frame latency waitable object, so the DXGI render queue applies (up to 3 frames by default). With Low latency (`OSU_D3D11_FRAME_LATENCY=1`) the patch calls `IDXGIDevice1::SetMaximumFrameLatency(1)` while the game is exclusive and resets it when the game leaves. When entering exclusive mode, the patch lets DXGI pick the exact refresh rate of the current display mode (for example 143.98 Hz instead of a rounded 144), as Microsoft recommends, so frames are flipped and not copied.
 
 The patch is three files in Veldrid. You can read it as a diff in the fork: [iwili-dev/veldrid](https://github.com/iwili-dev/veldrid/tree/exclusive-fullscreen) (branch `exclusive-fullscreen`). The Partial offline edition additionally changes one line in osu!framework, the FPS limit.
 
@@ -121,8 +153,8 @@ Build instructions: [BUILDING.md](BUILDING.md).
 
 ## Links
 
-- [Program release 1.1.0](https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/tag/app-1.1.0) (exe)
-- [Patch release 2026.1005.0-2](https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/tag/2026.1005.0-2) (batch files)
+- [Program release 1.2.0](https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/tag/app-1.2.0) (exe)
+- [Patch release 2026.1005.0-3](https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/tag/2026.1005.0-3) (batch files)
 - [Veldrid fork](https://github.com/iwili-dev/veldrid)
 
 ## Credits and licences
