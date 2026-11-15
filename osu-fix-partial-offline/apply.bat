@@ -1,7 +1,7 @@
 @echo off
 setlocal EnableExtensions
 title osu!lazer Fix by iwili - PARTIAL OFFLINE edition
-set "FIXVER=2026.1005.0"
+set "FIXVER=2026.1115.0"
 set "FILES=%~dp0files"
 set "LAYERS=HKCU\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers"
 set "OSU_FIX_EXPECT=%FIXVER%"
@@ -89,7 +89,7 @@ echo Checking that the current game files are the original ones...
 set "OSU_FIX_PREFIX=4.9.69+"
 powershell -NoProfile -Command "if((Get-Item -LiteralPath (Join-Path $env:OSU_FIX_GAME 'ppy.Veldrid.dll')).VersionInfo.ProductVersion.StartsWith($env:OSU_FIX_PREFIX)){exit 0}else{exit 1}"
 if errorlevel 1 goto :dirty
-set "OSU_FIX_PREFIX=2026.921.1+"
+set "OSU_FIX_PREFIX=2026.1114.0+"
 powershell -NoProfile -Command "if((Get-Item -LiteralPath (Join-Path $env:OSU_FIX_GAME 'osu.Framework.dll')).VersionInfo.ProductVersion.StartsWith($env:OSU_FIX_PREFIX)){exit 0}else{exit 1}"
 if errorlevel 1 goto :dirty
 if exist "%BACKUP%\layer-added.flag" set "KEEPFLAG=1"
@@ -108,7 +108,7 @@ if errorlevel 1 goto :copyfail
 :backed1
 if exist "%BACKUP%\osu.Framework.dll" goto :backed2
 rem No backup of this file yet: it can only be saved if the game currently has the OFFICIAL file.
-set "OSU_FIX_PREFIX=2026.921.1+"
+set "OSU_FIX_PREFIX=2026.1114.0+"
 powershell -NoProfile -Command "if((Get-Item -LiteralPath (Join-Path $env:OSU_FIX_GAME 'osu.Framework.dll')).VersionInfo.ProductVersion.StartsWith($env:OSU_FIX_PREFIX)){exit 0}else{exit 1}"
 if errorlevel 1 goto :dirty
 mkdir "%BACKUP%" 2>nul

@@ -1,7 +1,7 @@
 @echo off
 setlocal EnableExtensions
 title osu!lazer Fix by iwili - ONLINE edition
-set "FIXVER=2026.1005.0"
+set "FIXVER=2026.1115.0"
 set "FILES=%~dp0files"
 set "LAYERS=HKCU\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers"
 set "OSU_FIX_EXPECT=%FIXVER%"

@@ -14,7 +14,7 @@ if not exist "%SRC%\osu.Desktop" goto :nosrc
 echo Building from %SRC% ... this can take a few minutes.
 pushd "%SRC%"
 rem The assembly version is raised on purpose: .NET accepts a DLL with a version NOT LOWER than the one the official game asks for.
-dotnet build osu.Desktop -c Release --no-incremental -p:AssemblyVersion=2099.0.0.0 -p:FileVersion=2026.921.1.0
+dotnet build osu.Desktop -c Release --no-incremental -p:AssemblyVersion=2099.0.0.0 -p:FileVersion=2026.1114.0.0
 if errorlevel 1 goto :fail
 popd
 

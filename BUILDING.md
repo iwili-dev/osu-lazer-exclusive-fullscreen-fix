@@ -4,8 +4,8 @@ Requirements: Windows, [.NET SDK 10](https://dotnet.microsoft.com/download), Pow
 
 1. Get the sources from GitHub and put them into these folders (the paths are set at the top of
    `author-tools/prepare-sources.bat` and `author-tools/make-fix.bat`, change them if you want):
-   - `C:\src\osu` - [ppy/osu](https://github.com/ppy/osu), version **2026.1005.0**
-   - `C:\src\osu-framework` - [ppy/osu-framework](https://github.com/ppy/osu-framework), version **2026.921.1**
+   - `C:\src\osu` - [ppy/osu](https://github.com/ppy/osu), version **2026.1115.0**
+   - `C:\src\osu-framework` - [ppy/osu-framework](https://github.com/ppy/osu-framework), version **2026.1114.0**
    - `C:\src\veldrid` - [ppy/veldrid](https://github.com/ppy/veldrid), version **2026.322.0**
 2. In PowerShell, connect the local copies (these scripts come with the osu sources):
    ```
@@ -30,7 +30,8 @@ The assembly version of the built DLLs is raised on purpose (2099): .NET accepts
 is not lower than the one the official game asks for.
 
 How it works: osu!framework sets `AllowTearing` for the swapchain every frame depending on the window
-mode. The patched `D3D11Swapchain` in Veldrid uses this as the trigger to enter real DXGI exclusive
+mode and the frame limiter. `VSync (VRR low latency)` sets it to false even in fullscreen,
+so this patch does not enter exclusive mode with that limiter. The patched `D3D11Swapchain` in Veldrid uses this as the trigger to enter real DXGI exclusive
 fullscreen (the swapchain is recreated in the classic bitblt model while exclusive) and leaves it when the
 window loses focus.
 

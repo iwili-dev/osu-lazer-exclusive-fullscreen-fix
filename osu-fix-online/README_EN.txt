@@ -1,4 +1,4 @@
-osu!lazer Fix (2026.1005.0) by iwili
+osu!lazer Fix (2026.1115.0) by iwili
 ONLINE edition - true exclusive fullscreen for Direct3D 11
 REMOVES INPUT LAG
 ==========================================================
@@ -13,7 +13,7 @@ Everything else stays official.
 2. REQUIREMENTS
 ---------------
 - Windows 10 or 11, 64-bit.
-- Official osu!lazer version 2026.1005.0, installed from osu.ppy.sh.
+- Official osu!lazer version 2026.1115.0, installed from osu.ppy.sh.
   Any other version is refused by the installer.
 - The game must be closed while you install or remove the fix.
 
@@ -46,6 +46,8 @@ Everything else stays official.
 6) Start the game: Settings - Graphics - Renderer: Direct3D 11,
    Layout mode: Fullscreen. The screen blinks once when the game enters
    exclusive fullscreen.
+   For this fix, do not select "VSync (VRR low latency)" as the frame
+   limiter: that mode prevents exclusive fullscreen. Use another limiter.
 
 6. BACKUP
 ---------
@@ -61,7 +63,7 @@ and the backup is removed.
 8. AFTER A GAME UPDATE
 ----------------------
 If osu!lazer updates itself, the fix disappears (the game replaces its files).
-The installer works only with version 2026.1005.0, so a new version of the fix
+The installer works only with version 2026.1115.0, so a new version of the fix
 is needed for newer game versions.
 When a new version of the fix is released, just run its apply.bat. It removes
 the out-of-date backup of the previous version automatically and makes a new one.

@@ -2,7 +2,7 @@
 setlocal
 rem === Copies the built DLLs into the payload folder so that build.bat embeds them into the exe. ===
 rem Run make-fix.bat (author-tools) first. This folder must lie next to osu-fix-online and osu-fix-partial-offline.
-set "GV=2026.1005.0"
+set "GV=2026.1115.0"
 set "ON=%~dp0..\osu-fix-online\files"
 set "OFF=%~dp0..\osu-fix-partial-offline\files"
 set "DEST=%~dp0payload\%GV%"

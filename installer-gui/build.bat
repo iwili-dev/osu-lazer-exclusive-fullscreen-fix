@@ -5,7 +5,7 @@ rem The DLLs in payload\ are optional now: without them the program downloads th
 rem (update\manifest.json). With them it also works without internet for those game versions.
 cd /d "%~dp0"
 
-if not exist "payload\2026.1005.0\online\ppy.Veldrid.dll" echo Note: no DLLs in payload\, the exe will download the patches from the internet.
+if not exist "payload\2026.1115.0\online\ppy.Veldrid.dll" echo Note: no DLLs in payload\, the exe will download the patches from the internet.
 
 dotnet build OsuLazerFix.csproj -c Release
 if errorlevel 1 goto :fail
