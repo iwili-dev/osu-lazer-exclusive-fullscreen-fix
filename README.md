@@ -17,7 +17,7 @@
 <br>
 
 [![Program](https://img.shields.io/badge/program-1.2.1-ffbad8?style=flat-square)](https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/tag/app-1.2.1)
-[![Game](https://img.shields.io/badge/osu!lazer-2026.1005.0-ff66aa?style=flat-square)](https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/tag/2026.1005.0-3)
+[![Game](https://img.shields.io/badge/osu!lazer-2026.1115.0-ff66aa?style=flat-square)](https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/tag/2026.1115.0-1)
 ![Renderer](https://img.shields.io/badge/renderer-Direct3D%2011-444?style=flat-square)
 ![Platform](https://img.shields.io/badge/platform-Windows-444?style=flat-square)
 
@@ -44,7 +44,7 @@ The fix is installed on top of the regular game by replacing a DLL. `osu!.exe` a
 4. **Top of the window.** It shows the current game version installed on your device. The program looks for the game in `%LOCALAPPDATA%\osulazer\current`. If the game is located elsewhere, specify the folder in the settings.
 5. **Open the tab with your game version** and choose an edition (see the table below).
 6. **Click "Install"** and confirm. The files will be downloaded, checked and copied. When the status turns green, you are done.
-7. **In the game**, set Renderer to `Direct3D 11` and Layout mode to `Fullscreen`. When exclusive mode turns on, the screen blinks once.
+7. **In the game**, set Renderer to `Direct3D 11` and Layout mode to `Fullscreen`. When exclusive mode turns on, the screen blinks once. Do not use the frame limiter `VSync (VRR low latency)`: it prevents this fix from entering exclusive fullscreen. Choose another limiter.
 
 ## Editions
 
@@ -132,7 +132,7 @@ Alt+Tab works poorly in exclusive fullscreen mode: this is a feature of the mode
 
 ## Batch files instead of the exe
 
-If you prefer scripts, the [`2026.1005.0-3` release](https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/tag/2026.1005.0-3) contains two zip archives, one per edition. Unpack the one you need, `apply.bat` installs the fix, `revert.bat` removes it. The exe and the batch files share the same backup, so they can undo each other's work.
+If you prefer scripts, the [`2026.1115.0-1` release](https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/tag/2026.1115.0-1) contains two zip archives, one per edition. Unpack the one you need, `apply.bat` installs the fix, `revert.bat` removes it. The exe and the batch files share the same backup, so they can undo each other's work.
 
 Without the program, the settings are environment variables (run the commands in cmd, then start the game again):
 
@@ -154,7 +154,7 @@ Build instructions: [BUILDING.md](BUILDING.md).
 ## Links
 
 - [Program release 1.2.1](https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/tag/app-1.2.1) (exe)
-- [Patch release 2026.1005.0-3](https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/tag/2026.1005.0-3) (batch files)
+- [Patch release 2026.1115.0-1](https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/tag/2026.1115.0-1) (batch files)
 - [Veldrid fork](https://github.com/iwili-dev/veldrid)
 
 ## Credits and licences

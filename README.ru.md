@@ -17,7 +17,7 @@
 <br>
 
 [![Программа](https://img.shields.io/badge/программа-1.2.1-ffbad8?style=flat-square)](https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/tag/app-1.2.1)
-[![Игра](https://img.shields.io/badge/osu!lazer-2026.1005.0-ff66aa?style=flat-square)](https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/tag/2026.1005.0-3)
+[![Игра](https://img.shields.io/badge/osu!lazer-2026.1115.0-ff66aa?style=flat-square)](https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/tag/2026.1115.0-1)
 ![Рендерер](https://img.shields.io/badge/рендерер-Direct3D%2011-444?style=flat-square)
 ![Платформа](https://img.shields.io/badge/платформа-Windows-444?style=flat-square)
 
@@ -44,7 +44,7 @@
 4. **Верх окна.** Там написана текущая версия игры, которая установлена на вашем устройстве. Программа ищет игру в `%LOCALAPPDATA%\osulazer\current`. Если игра лежит в другом месте, укажите папку в настройках.
 5. **Откройте вкладку с версией вашей игры** и выберите издание (см. таблицу ниже).
 6. **Нажмите «Установить»** и подтвердите. Файлы скачаются, проверятся и скопируются. Когда статус станет зелёным, всё готово.
-7. **В игре** поставьте Renderer `Direct3D 11` и Layout mode `Fullscreen`. Когда включится эксклюзив, экран моргнёт один раз.
+7. **В игре** поставьте Renderer `Direct3D 11` и Layout mode `Fullscreen`. Когда включится эксклюзив, экран моргнёт один раз. Не выбирайте ограничитель кадров `VSync (VRR low latency)`: с ним фикс не включает эксклюзив. Выберите другой ограничитель.
 
 ## Издания
 
@@ -132,7 +132,7 @@ Alt+Tab в эксклюзивном полноэкранном режиме ра
 
 ## Батники вместо exe
 
-Если удобнее скрипты, в [релизе `2026.1005.0-3`](https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/tag/2026.1005.0-3) лежат два zip-архива, по одному на издание. Распакуйте нужный, `apply.bat` ставит фикс, `revert.bat` убирает. У exe и батников общий бэкап, так что они могут откатывать работу друг друга.
+Если удобнее скрипты, в [релизе `2026.1115.0-1`](https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/tag/2026.1115.0-1) лежат два zip-архива, по одному на издание. Распакуйте нужный, `apply.bat` ставит фикс, `revert.bat` убирает. У exe и батников общий бэкап, так что они могут откатывать работу друг друга.
 
 Без программы настройки задаются переменными окружения (выполните команды в cmd и перезапустите игру):
 
@@ -154,7 +154,7 @@ Veldrid, графический слой под osu!framework, создаёт fl
 ## Ссылки
 
 - [Релиз программы 1.2.1](https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/tag/app-1.2.1) (exe)
-- [Релиз патча 2026.1005.0-3](https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/tag/2026.1005.0-3) (батники)
+- [Релиз патча 2026.1115.0-1](https://github.com/iwili-dev/osu-lazer-exclusive-fullscreen-fix/releases/tag/2026.1115.0-1) (батники)
 - [Форк Veldrid](https://github.com/iwili-dev/veldrid)
 
 ## Авторство и лицензии
